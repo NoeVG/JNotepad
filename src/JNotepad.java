@@ -11,23 +11,26 @@
 
 
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class JNotepad extends javax.swing.JFrame {
     
-    public static final boolean NEW_FILE = true;
-    public static final boolean NOT_NEW_FILE = false;
+    public static final int NEW_FILE = 0;
+    public static final int NOT_NEW_FILE = 1;
+    public static final int OPEN_FILE = 3;
     public static final boolean SAVE = true;
-    public static final boolean NOT_SAVE = true;
+    public static final boolean NOT_SAVE = false;
     
     
-    private boolean fileCreated = NOT_NEW_FILE; 
+    private int fileCreated = NOT_NEW_FILE; 
     private boolean statusFileSave = NOT_SAVE; 
     
 
@@ -288,11 +291,22 @@ public class JNotepad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuFileExitActionPerformed
 
     private void jMenuFileSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileSaveActionPerformed
-        saveFile();
+        switch (this.fileCreated){
+            case NEW_FILE:
+                saveAs();
+            case OPEN_FILE:
+                saveFile();
+            case NOT_NEW_FILE:
+                saveFile();
+        }
+        this.statusFileSave = SAVE;
+        this.fileCreated = OPEN_FILE;
     }//GEN-LAST:event_jMenuFileSaveActionPerformed
 
     private void jMenuFileSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileSaveAsActionPerformed
         saveAs();
+        this.statusFileSave = SAVE;
+        this.fileCreated = OPEN_FILE;
     }//GEN-LAST:event_jMenuFileSaveAsActionPerformed
 
     private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
@@ -303,29 +317,49 @@ public class JNotepad extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextArea1KeyTyped
 
     private void jMenuFileOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileOpenActionPerformed
-        
+        int option = this.jFileChooserOpenFile.showOpenDialog(this);
+         switch(option){
+             case JFileChooser.APPROVE_OPTION:
+                 this.file = this.jFileChooserOpenFile.getSelectedFile();
+                    try{
+                        BufferedReader br = new BufferedReader(new FileReader(this.file));
+                        this.jTextArea1.read(br,null);
+                        br.close();
+                        this.jTextArea1.requestFocus();
+                        this.fileCreated = OPEN_FILE;
+                    }catch(IOException ex)
+                    {
+                      System.out.print("Error :"+ex);
+                    }
+                    break;
+         }
     }//GEN-LAST:event_jMenuFileOpenActionPerformed
     public void checkFileBeforeExit(){
-        if(this.statusFileSave == NOT_SAVE){
-            int optionSave = JOptionPane.showConfirmDialog(null,
-                "Do you want to save the  changes before closing ?");
-            switch(optionSave){
-                case JOptionPane.CANCEL_OPTION:
-                    break;
-                case JOptionPane.OK_OPTION:
-                    if(this.fileCreated == NEW_FILE){              
-                        saveAs();           
-                    }else{
-                        saveFile();
-                    }
-                    close();
-                    break;
-                case JOptionPane.NO_OPTION:
-                    break;
-            }            
+        if( (this.fileCreated == NEW_FILE)||(this.fileCreated == OPEN_FILE) ){
+            if(this.statusFileSave == NOT_SAVE){
+                int optionSave = JOptionPane.showConfirmDialog(null,
+                    "Do you want to save the  changes before closing ?");
+                switch(optionSave){
+                    case JOptionPane.CANCEL_OPTION:
+                        break;
+                    case JOptionPane.OK_OPTION:
+                        if(this.fileCreated == OPEN_FILE){              
+                            saveFile();
+                        }else{
+                            saveAs();           
+                        }
+                        close();
+                        
+                        break;
+                    case JOptionPane.NO_OPTION:
+                        break;
+                }            
+            }else{
+                close();
+            }
         }else{
-            close();
-        }  
+            close();   
+        }
     }
     private void saveAs(){
         int option = this.jFileChooserSaveAS.showSaveDialog(this);
@@ -358,8 +392,9 @@ public class JNotepad extends javax.swing.JFrame {
     public void saveFile(){
         try{
         BufferedWriter out = new BufferedWriter(new FileWriter(this.file)); 
-        out.write(this.jTextArea1.getText());
+        this.jTextArea1.write(out);
         out.close();
+        
         this.statusFileSave = SAVE;
         }catch(IOException ex)
         {
