@@ -10,19 +10,28 @@
  */
 
 
-import FileJNotepad.JNotepadFile;
+
+import java.io.BufferedWriter;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class JNotepad extends javax.swing.JFrame {
-
-
-    private static final int SAVE = 0;
-    private static final int DO_NOT_SAVE = 1;
-    private static final int CANCEL = 2;
     
-    private JNotepadFile jNotepadFile;
+    public static final boolean NEW_FILE = true;
+    public static final boolean NOT_NEW_FILE = false;
+    public static final boolean SAVE = true;
+    public static final boolean NOT_SAVE = true;
+    
+    
+    private boolean fileCreated = NOT_NEW_FILE; 
+    private boolean statusFileSave = NOT_SAVE; 
+    
 
-
+    private File file;
     public JNotepad() {
         initComponents();
     }
@@ -37,16 +46,17 @@ public class JNotepad extends javax.swing.JFrame {
     private void initComponents() {
 
         jFileChooserSaveAS = new javax.swing.JFileChooser();
+        jFileChooserOpenFile = new javax.swing.JFileChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuFileNuevo = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuFileNew = new javax.swing.JMenuItem();
+        jMenuFileOpen = new javax.swing.JMenuItem();
+        jMenuFileSave = new javax.swing.JMenuItem();
+        jMenuFileSaveAs = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuFileExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
@@ -73,13 +83,10 @@ public class JNotepad extends javax.swing.JFrame {
 
         jFileChooserSaveAS.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("JNoted");
         setMinimumSize(new java.awt.Dimension(450, 400));
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -87,36 +94,61 @@ public class JNotepad extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jMenu1.setText("File");
 
-        jMenuFileNuevo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuFileNuevo.setText("Nuevo");
-        jMenuFileNuevo.addActionListener(new java.awt.event.ActionListener() {
+        jMenuFileNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuFileNew.setText("New");
+        jMenuFileNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuFileNuevoActionPerformed(evt);
+                jMenuFileNewActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuFileNuevo);
+        jMenu1.add(jMenuFileNew);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Abrir...");
-        jMenu1.add(jMenuItem2);
+        jMenuFileOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuFileOpen.setText("Open...");
+        jMenuFileOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuFileOpenActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuFileOpen);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setText("Guardar");
-        jMenu1.add(jMenuItem3);
+        jMenuFileSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuFileSave.setText("Save");
+        jMenuFileSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuFileSaveActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuFileSave);
 
-        jMenuItem4.setText("Guardar como ...");
-        jMenu1.add(jMenuItem4);
+        jMenuFileSaveAs.setText("Save As ...");
+        jMenuFileSaveAs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuFileSaveAsActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuFileSaveAs);
         jMenu1.add(jSeparator1);
 
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem5.setText("Salir");
-        jMenu1.add(jMenuItem5);
+        jMenuFileExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuFileExit.setText("Close");
+        jMenuFileExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuFileExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuFileExit);
 
         jMenuBar1.add(jMenu1);
 
@@ -223,9 +255,13 @@ public class JNotepad extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuFileNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileNuevoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuFileNuevoActionPerformed
+    private void jMenuFileNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileNewActionPerformed
+         if(this.fileCreated == NEW_FILE){
+             
+         }else{
+             
+         }
+    }//GEN-LAST:event_jMenuFileNewActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
@@ -243,52 +279,97 @@ public class JNotepad extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        System.out.println("The window is opend");
-        this.jNotepadFile = new JNotepadFile();
-        this.jNotepadFile.setStatusFile(JNotepadFile.NO_SAVE);
-        this.jNotepadFile.setExistFile(JNotepadFile.NO_EXIST);
-    }//GEN-LAST:event_formWindowOpened
-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        if(this.jNotepadFile.isStatusFile() == JNotepadFile.NO_SAVE)
-        {
-            System.out.println("Open save window");
-            switch( JOptionPane.showConfirmDialog(null, "Do you want to save changes to file?"))
-            {
-                case SAVE:
-                    
-                    if(this.jNotepadFile.isExistFile())
-                    {
-                        this.jNotepadFile.saveFile(this.jNotepadFile.getFileName(), "data");
-                    }else{
-                        saveAS();
-                    }
-                    break;
-                case DO_NOT_SAVE:
-                    System.out.println("no save");
-                    break;
-                case CANCEL:
-                    System.out.println("cancel");
-                    break;
-            }
-            
-        }
+        checkFileBeforeExit();
     }//GEN-LAST:event_formWindowClosing
-public void saveAS()
-{
-    int returnVal = this.jFileChooserSaveAS.showSaveDialog(this);
-    switch(returnVal)
-    {   
-        case JFileChooser.APPROVE_OPTION:
-            this.jNotepadFile.saveFile(this.jFileChooserSaveAS.getSelectedFile().getPath(),"Contenido");
-            this.jNotepadFile.setExistFile(JNotepadFile.EXIST);
-            break;
+
+    private void jMenuFileExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileExitActionPerformed
+        checkFileBeforeExit();
+    }//GEN-LAST:event_jMenuFileExitActionPerformed
+
+    private void jMenuFileSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileSaveActionPerformed
+        saveFile();
+    }//GEN-LAST:event_jMenuFileSaveActionPerformed
+
+    private void jMenuFileSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileSaveAsActionPerformed
+        saveAs();
+    }//GEN-LAST:event_jMenuFileSaveAsActionPerformed
+
+    private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
+        if(this.fileCreated == NOT_NEW_FILE){
+            this.fileCreated = NEW_FILE;
+        }
+        this.statusFileSave = NOT_SAVE;
+    }//GEN-LAST:event_jTextArea1KeyTyped
+
+    private void jMenuFileOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileOpenActionPerformed
+        
+    }//GEN-LAST:event_jMenuFileOpenActionPerformed
+    public void checkFileBeforeExit(){
+        if(this.statusFileSave == NOT_SAVE){
+            int optionSave = JOptionPane.showConfirmDialog(null,
+                "Do you want to save the  changes before closing ?");
+            switch(optionSave){
+                case JOptionPane.CANCEL_OPTION:
+                    break;
+                case JOptionPane.OK_OPTION:
+                    if(this.fileCreated == NEW_FILE){              
+                        saveAs();           
+                    }else{
+                        saveFile();
+                    }
+                    close();
+                    break;
+                case JOptionPane.NO_OPTION:
+                    break;
+            }            
+        }else{
+            close();
+        }  
     }
-}
-    /**
-     * @param args the command line arguments
-     */
+    private void saveAs(){
+        int option = this.jFileChooserSaveAS.showSaveDialog(this);
+        switch(option){
+            case JFileChooser.APPROVE_OPTION:
+                if(this.jFileChooserSaveAS.getSelectedFile().exists()){
+                    int overwriteFile = JOptionPane.showConfirmDialog(null,
+                            "A file named "+this.jFileChooserSaveAS.getSelectedFile().getName()+" already"
+                                    + "exist. Do you want to replace it?");
+                    switch(overwriteFile){
+                        case JOptionPane.CANCEL_OPTION:
+                            saveAs();
+                            break;
+                        case JOptionPane.OK_OPTION:
+                            this.file = this.jFileChooserSaveAS.getSelectedFile();
+                            saveFile();
+                            break;
+                        case JOptionPane.NO_OPTION:
+                            break;
+                    }
+                }else{
+                    this.file = this.jFileChooserSaveAS.getSelectedFile();
+                    saveFile();
+                }            
+                break;
+            case JFileChooser.CANCEL_OPTION:
+                break;
+        }    
+    }
+    public void saveFile(){
+        try{
+        BufferedWriter out = new BufferedWriter(new FileWriter(this.file)); 
+        out.write(this.jTextArea1.getText());
+        out.close();
+        this.statusFileSave = SAVE;
+        }catch(IOException ex)
+        {
+          System.out.print("Error :"+ex);
+        }
+    }
+    private void close(){
+        this.dispose();
+        System.exit(0);
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -322,6 +403,7 @@ public void saveAS()
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFileChooser jFileChooserOpenFile;
     private javax.swing.JFileChooser jFileChooserSaveAS;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -329,7 +411,11 @@ public void saveAS()
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuFileNuevo;
+    private javax.swing.JMenuItem jMenuFileExit;
+    private javax.swing.JMenuItem jMenuFileNew;
+    private javax.swing.JMenuItem jMenuFileOpen;
+    private javax.swing.JMenuItem jMenuFileSave;
+    private javax.swing.JMenuItem jMenuFileSaveAs;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
@@ -340,12 +426,8 @@ public void saveAS()
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
