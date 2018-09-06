@@ -20,6 +20,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.text.Document;
+import javax.swing.undo.UndoManager;
 
 public class JNotepad extends javax.swing.JFrame {
     
@@ -35,6 +39,9 @@ public class JNotepad extends javax.swing.JFrame {
     
 
     private File file;
+    private Document document;
+    private UndoManager undo;
+    
     public JNotepad() {
         initComponents();
     }
@@ -61,28 +68,28 @@ public class JNotepad extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuFileExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuEditUndo = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuEditCut = new javax.swing.JMenuItem();
+        jMenuEditCopy = new javax.swing.JMenuItem();
+        jMenuEditPaste = new javax.swing.JMenuItem();
+        jMenuEditDel = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuIEditFind = new javax.swing.JMenuItem();
+        jMenuFindNext = new javax.swing.JMenuItem();
+        jMenuEditReplace = new javax.swing.JMenuItem();
+        jMenuEditGoTo = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem15 = new javax.swing.JMenuItem();
-        jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuEditSelectAll = new javax.swing.JMenuItem();
+        jMenuEditTimeDate = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem17 = new javax.swing.JMenuItem();
-        jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuFormatWordWrap = new javax.swing.JMenuItem();
+        jMenuFormatFont = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem19 = new javax.swing.JMenuItem();
+        jMenuViewStatusBar = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        jMenuItem20 = new javax.swing.JMenuItem();
-        jMenuItem21 = new javax.swing.JMenuItem();
+        jMenuHelpViewHelp = new javax.swing.JMenuItem();
+        jMenuHelpAboutJNotepad = new javax.swing.JMenuItem();
 
         jFileChooserSaveAS.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
 
@@ -90,6 +97,9 @@ public class JNotepad extends javax.swing.JFrame {
         setTitle("JNoted");
         setMinimumSize(new java.awt.Dimension(450, 400));
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -157,99 +167,159 @@ public class JNotepad extends javax.swing.JFrame {
 
         jMenu2.setText("Edit");
 
-        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem6.setText("Undo");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jMenuEditUndo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditUndo.setText("Undo");
+        jMenuEditUndo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jMenuEditUndoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem6);
+        jMenu2.add(jMenuEditUndo);
         jMenu2.add(jSeparator2);
 
-        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem7.setText("Cut");
-        jMenu2.add(jMenuItem7);
+        jMenuEditCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditCut.setText("Cut");
+        jMenuEditCut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuEditCutActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuEditCut);
 
-        jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem8.setText("Copy");
-        jMenu2.add(jMenuItem8);
+        jMenuEditCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditCopy.setText("Copy");
+        jMenuEditCopy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuEditCopyActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuEditCopy);
 
-        jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem9.setText("Paste");
-        jMenu2.add(jMenuItem9);
+        jMenuEditPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditPaste.setText("Paste");
+        jMenuEditPaste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuEditPasteActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuEditPaste);
 
-        jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        jMenuItem10.setText("Delete");
-        jMenu2.add(jMenuItem10);
+        jMenuEditDel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        jMenuEditDel.setText("Delete");
+        jMenuEditDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuEditDelActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuEditDel);
         jMenu2.add(jSeparator3);
 
-        jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem11.setText("Find...");
-        jMenu2.add(jMenuItem11);
-
-        jMenuItem12.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
-        jMenuItem12.setText("Find Next");
-        jMenu2.add(jMenuItem12);
-
-        jMenuItem13.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem13.setText("Replace...");
-        jMenu2.add(jMenuItem13);
-
-        jMenuItem14.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem14.setText("Go To...");
-        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+        jMenuIEditFind.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuIEditFind.setText("Find...");
+        jMenuIEditFind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem14ActionPerformed(evt);
+                jMenuIEditFindActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem14);
+        jMenu2.add(jMenuIEditFind);
+
+        jMenuFindNext.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        jMenuFindNext.setText("Find Next");
+        jMenuFindNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuFindNextActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuFindNext);
+
+        jMenuEditReplace.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditReplace.setText("Replace...");
+        jMenuEditReplace.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuEditReplaceActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuEditReplace);
+
+        jMenuEditGoTo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditGoTo.setText("Go To...");
+        jMenuEditGoTo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuEditGoToActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuEditGoTo);
         jMenu2.add(jSeparator4);
 
-        jMenuItem15.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem15.setText("Select All");
-        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+        jMenuEditSelectAll.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditSelectAll.setText("Select All");
+        jMenuEditSelectAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem15ActionPerformed(evt);
+                jMenuEditSelectAllActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem15);
+        jMenu2.add(jMenuEditSelectAll);
 
-        jMenuItem16.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
-        jMenuItem16.setText("Time/Date");
-        jMenu2.add(jMenuItem16);
+        jMenuEditTimeDate.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuEditTimeDate.setText("Time/Date");
+        jMenuEditTimeDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuEditTimeDateActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuEditTimeDate);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Format");
 
-        jMenuItem17.setText("Word Wrap");
-        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+        jMenuFormatWordWrap.setText("Word Wrap");
+        jMenuFormatWordWrap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem17ActionPerformed(evt);
+                jMenuFormatWordWrapActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem17);
+        jMenu3.add(jMenuFormatWordWrap);
 
-        jMenuItem18.setText("Font...");
-        jMenu3.add(jMenuItem18);
+        jMenuFormatFont.setText("Font...");
+        jMenuFormatFont.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuFormatFontActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuFormatFont);
 
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("View");
 
-        jMenuItem19.setText("Status Bar");
-        jMenu4.add(jMenuItem19);
+        jMenuViewStatusBar.setText("Status Bar");
+        jMenuViewStatusBar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuViewStatusBarActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuViewStatusBar);
 
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Help");
 
-        jMenuItem20.setText("View Help");
-        jMenu5.add(jMenuItem20);
+        jMenuHelpViewHelp.setText("View Help");
+        jMenuHelpViewHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuHelpViewHelpActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuHelpViewHelp);
 
-        jMenuItem21.setText("About JNotepad");
-        jMenu5.add(jMenuItem21);
+        jMenuHelpAboutJNotepad.setText("About JNotepad");
+        jMenuHelpAboutJNotepad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuHelpAboutJNotepadActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuHelpAboutJNotepad);
 
         jMenuBar1.add(jMenu5);
 
@@ -259,28 +329,38 @@ public class JNotepad extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuFileNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileNewActionPerformed
-         if(this.fileCreated == NEW_FILE){
-             
-         }else{
-             
-         }
+         
+        switch (this.fileCreated){
+            case NEW_FILE:
+                saveAs();
+                break;
+            case OPEN_FILE:
+                saveFile();
+                break;
+            case NOT_NEW_FILE:
+                break;
+        }
+        this.jTextArea1.append(null);
+        this.fileCreated = NOT_NEW_FILE;
+        this.statusFileSave = NOT_SAVE;
+        this.file = null;
     }//GEN-LAST:event_jMenuFileNewActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    private void jMenuEditUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditUndoActionPerformed
+       undo.undo();
+    }//GEN-LAST:event_jMenuEditUndoActionPerformed
 
-    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+    private void jMenuEditGoToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditGoToActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem14ActionPerformed
+    }//GEN-LAST:event_jMenuEditGoToActionPerformed
 
-    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+    private void jMenuEditSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditSelectAllActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem15ActionPerformed
+    }//GEN-LAST:event_jMenuEditSelectAllActionPerformed
 
-    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+    private void jMenuFormatWordWrapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFormatWordWrapActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem17ActionPerformed
+    }//GEN-LAST:event_jMenuFormatWordWrapActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         checkFileBeforeExit();
@@ -294,10 +374,13 @@ public class JNotepad extends javax.swing.JFrame {
         switch (this.fileCreated){
             case NEW_FILE:
                 saveAs();
+                break;
             case OPEN_FILE:
                 saveFile();
+                break;
             case NOT_NEW_FILE:
                 saveFile();
+                break;
         }
         this.statusFileSave = SAVE;
         this.fileCreated = OPEN_FILE;
@@ -327,6 +410,7 @@ public class JNotepad extends javax.swing.JFrame {
                         br.close();
                         this.jTextArea1.requestFocus();
                         this.fileCreated = OPEN_FILE;
+                        this.statusFileSave = SAVE;
                     }catch(IOException ex)
                     {
                       System.out.print("Error :"+ex);
@@ -334,6 +418,65 @@ public class JNotepad extends javax.swing.JFrame {
                     break;
          }
     }//GEN-LAST:event_jMenuFileOpenActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.undo = new UndoManager();
+        this.document = this.jTextArea1.getDocument();
+        this.document.addUndoableEditListener(new UndoableEditListener() {
+            @Override
+            public void undoableEditHappened(UndoableEditEvent e) {
+                undo.addEdit(e.getEdit());
+            }
+        });
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jMenuEditCutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditCutActionPerformed
+        this.jTextArea1.cut();
+    }//GEN-LAST:event_jMenuEditCutActionPerformed
+
+    private void jMenuEditCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditCopyActionPerformed
+        this.jTextArea1.copy();
+    }//GEN-LAST:event_jMenuEditCopyActionPerformed
+
+    private void jMenuEditPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditPasteActionPerformed
+        this.jTextArea1.paste();
+    }//GEN-LAST:event_jMenuEditPasteActionPerformed
+
+    private void jMenuEditDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditDelActionPerformed
+        this.jTextArea1.replaceSelection("");
+    }//GEN-LAST:event_jMenuEditDelActionPerformed
+
+    private void jMenuIEditFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuIEditFindActionPerformed
+
+    }//GEN-LAST:event_jMenuIEditFindActionPerformed
+
+    private void jMenuFindNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFindNextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuFindNextActionPerformed
+
+    private void jMenuEditReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditReplaceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuEditReplaceActionPerformed
+
+    private void jMenuEditTimeDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditTimeDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuEditTimeDateActionPerformed
+
+    private void jMenuFormatFontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFormatFontActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuFormatFontActionPerformed
+
+    private void jMenuViewStatusBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuViewStatusBarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuViewStatusBarActionPerformed
+
+    private void jMenuHelpViewHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHelpViewHelpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuHelpViewHelpActionPerformed
+
+    private void jMenuHelpAboutJNotepadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHelpAboutJNotepadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuHelpAboutJNotepadActionPerformed
     public void checkFileBeforeExit(){
         if( (this.fileCreated == NEW_FILE)||(this.fileCreated == OPEN_FILE) ){
             if(this.statusFileSave == NOT_SAVE){
@@ -352,6 +495,7 @@ public class JNotepad extends javax.swing.JFrame {
                         
                         break;
                     case JOptionPane.NO_OPTION:
+                        close();
                         break;
                 }            
             }else{
@@ -446,27 +590,27 @@ public class JNotepad extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuEditCopy;
+    private javax.swing.JMenuItem jMenuEditCut;
+    private javax.swing.JMenuItem jMenuEditDel;
+    private javax.swing.JMenuItem jMenuEditGoTo;
+    private javax.swing.JMenuItem jMenuEditPaste;
+    private javax.swing.JMenuItem jMenuEditReplace;
+    private javax.swing.JMenuItem jMenuEditSelectAll;
+    private javax.swing.JMenuItem jMenuEditTimeDate;
+    private javax.swing.JMenuItem jMenuEditUndo;
     private javax.swing.JMenuItem jMenuFileExit;
     private javax.swing.JMenuItem jMenuFileNew;
     private javax.swing.JMenuItem jMenuFileOpen;
     private javax.swing.JMenuItem jMenuFileSave;
     private javax.swing.JMenuItem jMenuFileSaveAs;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem15;
-    private javax.swing.JMenuItem jMenuItem16;
-    private javax.swing.JMenuItem jMenuItem17;
-    private javax.swing.JMenuItem jMenuItem18;
-    private javax.swing.JMenuItem jMenuItem19;
-    private javax.swing.JMenuItem jMenuItem20;
-    private javax.swing.JMenuItem jMenuItem21;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem jMenuFindNext;
+    private javax.swing.JMenuItem jMenuFormatFont;
+    private javax.swing.JMenuItem jMenuFormatWordWrap;
+    private javax.swing.JMenuItem jMenuHelpAboutJNotepad;
+    private javax.swing.JMenuItem jMenuHelpViewHelp;
+    private javax.swing.JMenuItem jMenuIEditFind;
+    private javax.swing.JMenuItem jMenuViewStatusBar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
