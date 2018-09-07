@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import javax.swing.ImageIcon;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.Document;
@@ -57,10 +58,12 @@ public class JNotepad extends javax.swing.JFrame {
     private boolean showStatusBar = NOT_SHOWN_STATUS_BAR;
     private int lineNum = 1;
     private int colNum = 1;
-            
+    
+    private ImageIcon img = new ImageIcon("../icon/iconApp.png");
     
     public JNotepad() {
         initComponents();
+        this.setIconImage(img.getImage());
     }
 
     /**
@@ -469,6 +472,7 @@ public class JNotepad extends javax.swing.JFrame {
 
         jMenu5.setText("Help");
 
+        jMenuHelpViewHelp.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/help.png")); // NOI18N
         jMenuHelpViewHelp.setText("View Help");
         jMenuHelpViewHelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

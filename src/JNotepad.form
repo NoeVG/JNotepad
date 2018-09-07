@@ -603,6 +603,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuHelpViewHelp">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/help.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="View Help"/>
               </Properties>
               <Events>
