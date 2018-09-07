@@ -481,6 +481,7 @@ public class JNotepad extends javax.swing.JFrame {
         });
         jMenu5.add(jMenuHelpViewHelp);
 
+        jMenuHelpAboutJNotepad.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/iconApp.png")); // NOI18N
         jMenuHelpAboutJNotepad.setText("About JNotepad");
         jMenuHelpAboutJNotepad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -680,7 +681,14 @@ public class JNotepad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuHelpViewHelpActionPerformed
 
     private void jMenuHelpAboutJNotepadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHelpAboutJNotepadActionPerformed
-        // TODO add your handling code here:
+        if (Desktop.isDesktopSupported()) {
+            try{
+                Desktop.getDesktop().browse(new URI("https://github.com/NoeVG/JNotepad"));
+            }catch (IOException | URISyntaxException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_jMenuHelpAboutJNotepadActionPerformed
     public void checkFileBeforeExit(){
         if( (this.fileCreated == NEW_FILE)||(this.fileCreated == OPEN_FILE) ){

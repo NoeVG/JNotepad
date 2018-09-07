@@ -614,6 +614,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuHelpAboutJNotepad">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/iconApp.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="About JNotepad"/>
               </Properties>
               <Events>
