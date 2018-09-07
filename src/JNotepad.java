@@ -13,6 +13,7 @@
 
 import edit.JFrameFind;
 import edit.JFrameReplace;
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import javax.swing.JFileChooser;
@@ -22,6 +23,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
@@ -441,6 +444,7 @@ public class JNotepad extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuFormatWordWrap);
 
+        jMenuFormatFont.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/font.png")); // NOI18N
         jMenuFormatFont.setText("Font...");
         jMenuFormatFont.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -661,7 +665,14 @@ public class JNotepad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuViewStatusBarActionPerformed
 
     private void jMenuHelpViewHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHelpViewHelpActionPerformed
-        // TODO add your handling code here:
+        if (Desktop.isDesktopSupported()) {
+            try{
+                Desktop.getDesktop().browse(new URI("https://github.com/NoeVG/JNotepad"));
+            }catch (IOException | URISyntaxException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_jMenuHelpViewHelpActionPerformed
 
     private void jMenuHelpAboutJNotepadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHelpAboutJNotepadActionPerformed
