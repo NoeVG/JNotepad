@@ -320,6 +320,7 @@ public class JNotepad extends javax.swing.JFrame {
         jMenu2.add(jSeparator2);
 
         jMenuEditCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditCut.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/cut.png")); // NOI18N
         jMenuEditCut.setText("Cut");
         jMenuEditCut.setEnabled(false);
         jMenuEditCut.addActionListener(new java.awt.event.ActionListener() {
@@ -330,6 +331,7 @@ public class JNotepad extends javax.swing.JFrame {
         jMenu2.add(jMenuEditCut);
 
         jMenuEditCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditCopy.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/copy-document.png")); // NOI18N
         jMenuEditCopy.setText("Copy");
         jMenuEditCopy.setEnabled(false);
         jMenuEditCopy.addActionListener(new java.awt.event.ActionListener() {
@@ -340,6 +342,7 @@ public class JNotepad extends javax.swing.JFrame {
         jMenu2.add(jMenuEditCopy);
 
         jMenuEditPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditPaste.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/paste-from-clipboard.png")); // NOI18N
         jMenuEditPaste.setText("Paste");
         jMenuEditPaste.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -349,6 +352,7 @@ public class JNotepad extends javax.swing.JFrame {
         jMenu2.add(jMenuEditPaste);
 
         jMenuEditDel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        jMenuEditDel.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/rubbish-bin-delete-button.png")); // NOI18N
         jMenuEditDel.setText("Delete");
         jMenuEditDel.setEnabled(false);
         jMenuEditDel.addActionListener(new java.awt.event.ActionListener() {
@@ -360,6 +364,7 @@ public class JNotepad extends javax.swing.JFrame {
         jMenu2.add(jSeparator3);
 
         jMenuIEditFind.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuIEditFind.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/find.png")); // NOI18N
         jMenuIEditFind.setText("Find...");
         jMenuIEditFind.setEnabled(false);
         jMenuIEditFind.addActionListener(new java.awt.event.ActionListener() {
@@ -370,6 +375,7 @@ public class JNotepad extends javax.swing.JFrame {
         jMenu2.add(jMenuIEditFind);
 
         jMenuFindNext.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        jMenuFindNext.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/findNext.png")); // NOI18N
         jMenuFindNext.setText("Find Next");
         jMenuFindNext.setEnabled(false);
         jMenuFindNext.addActionListener(new java.awt.event.ActionListener() {
@@ -380,6 +386,7 @@ public class JNotepad extends javax.swing.JFrame {
         jMenu2.add(jMenuFindNext);
 
         jMenuEditReplace.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditReplace.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/replace.png")); // NOI18N
         jMenuEditReplace.setText("Replace...");
         jMenuEditReplace.setEnabled(false);
         jMenuEditReplace.addActionListener(new java.awt.event.ActionListener() {
@@ -390,6 +397,7 @@ public class JNotepad extends javax.swing.JFrame {
         jMenu2.add(jMenuEditReplace);
 
         jMenuEditGoTo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditGoTo.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/going-to-work.png")); // NOI18N
         jMenuEditGoTo.setText("Go To...");
         jMenuEditGoTo.setEnabled(false);
         jMenuEditGoTo.addActionListener(new java.awt.event.ActionListener() {
@@ -401,6 +409,7 @@ public class JNotepad extends javax.swing.JFrame {
         jMenu2.add(jSeparator4);
 
         jMenuEditSelectAll.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditSelectAll.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/selectAll.png")); // NOI18N
         jMenuEditSelectAll.setText("Select All");
         jMenuEditSelectAll.setEnabled(false);
         jMenuEditSelectAll.addActionListener(new java.awt.event.ActionListener() {
@@ -411,6 +420,7 @@ public class JNotepad extends javax.swing.JFrame {
         jMenu2.add(jMenuEditSelectAll);
 
         jMenuEditTimeDate.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuEditTimeDate.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/time.png")); // NOI18N
         jMenuEditTimeDate.setText("Time/Date");
         jMenuEditTimeDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

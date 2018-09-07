@@ -406,6 +406,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+X"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/cut.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cut"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -417,6 +420,9 @@
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+C"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/copy-document.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Copy"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -430,6 +436,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+V"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/paste-from-clipboard.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Paste"/>
               </Properties>
               <Events>
@@ -440,6 +449,9 @@
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="DELETE"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/rubbish-bin-delete-button.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Delete"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -455,6 +467,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+F"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/find.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Find..."/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -466,6 +481,9 @@
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="F3"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/findNext.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Find Next"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -479,6 +497,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+H"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/replace.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Replace..."/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -490,6 +511,9 @@
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+G"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/going-to-work.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Go To..."/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -505,6 +529,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+A"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/selectAll.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Select All"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -516,6 +543,9 @@
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="F5"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/time.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Time/Date"/>
               </Properties>
