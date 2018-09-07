@@ -11,6 +11,8 @@
 
 
 
+import edit.JFrameFind;
+import edit.JFrameReplace;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import javax.swing.JFileChooser;
@@ -20,6 +22,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.Document;
@@ -37,11 +40,12 @@ public class JNotepad extends javax.swing.JFrame {
     private int fileCreated = NOT_NEW_FILE; 
     private boolean statusFileSave = NOT_SAVE; 
     
-
     private File file;
     private Document document;
     private UndoManager undo;
     
+    private JFrameFind jframeFind; 
+    private JFrameReplace jframeReplace; 
     public JNotepad() {
         initComponents();
     }
@@ -54,9 +58,27 @@ public class JNotepad extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jFileChooserSaveAS = new javax.swing.JFileChooser();
         jFileChooserOpenFile = new javax.swing.JFileChooser();
+        jFontChooser = new javax.swing.JFrame();
+        jPanelFontChooser = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPaneFontStyle = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
+        jScrollPaneFontSize = new javax.swing.JScrollPane();
+        jList3 = new javax.swing.JList<>();
+        jPanel3 = new javax.swing.JPanel();
+        jTextFieldSelectFont = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jPanelButtons = new javax.swing.JPanel();
+        jButtonAccept = new javax.swing.JButton();
+        jButtonCancel = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jPanelSample = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -92,6 +114,97 @@ public class JNotepad extends javax.swing.JFrame {
         jMenuHelpAboutJNotepad = new javax.swing.JMenuItem();
 
         jFileChooserSaveAS.setDialogType(javax.swing.JFileChooser.SAVE_DIALOG);
+
+        jFontChooser.setTitle("Font");
+        jFontChooser.setMinimumSize(new java.awt.Dimension(400, 450));
+        jFontChooser.setResizable(false);
+        jFontChooser.setSize(new java.awt.Dimension(200, 500));
+
+        jPanelFontChooser.setBackground(java.awt.Color.white);
+        jPanelFontChooser.setLayout(new java.awt.BorderLayout());
+
+        jPanel1.setBackground(java.awt.Color.white);
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        jScrollPaneFontStyle.setBorder(javax.swing.BorderFactory.createTitledBorder("Font Style"));
+        jScrollPaneFontStyle.setPreferredSize(new java.awt.Dimension(40, 158));
+
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jList2.setPreferredSize(new java.awt.Dimension(40, 85));
+        jScrollPaneFontStyle.setViewportView(jList2);
+
+        jPanel1.add(jScrollPaneFontStyle, java.awt.BorderLayout.CENTER);
+
+        jScrollPaneFontSize.setBorder(javax.swing.BorderFactory.createTitledBorder("Size"));
+        jScrollPaneFontSize.setPreferredSize(new java.awt.Dimension(60, 158));
+
+        jList3.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPaneFontSize.setViewportView(jList3);
+
+        jPanel1.add(jScrollPaneFontSize, java.awt.BorderLayout.EAST);
+
+        jPanel3.setBackground(java.awt.Color.white);
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Font"));
+        jPanel3.setPreferredSize(new java.awt.Dimension(150, 32));
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jTextFieldSelectFont.setText("jTextField1");
+        jPanel3.add(jTextFieldSelectFont, java.awt.BorderLayout.NORTH);
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "item 6", "item 7", "item 8", "item 10", "item 11", "item 12", "item 13", "item 14" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList1);
+
+        jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel3, java.awt.BorderLayout.WEST);
+
+        jPanelFontChooser.add(jPanel1, java.awt.BorderLayout.NORTH);
+
+        jPanelButtons.setBackground(java.awt.Color.white);
+        jPanelButtons.setLayout(new java.awt.GridBagLayout());
+
+        jButtonAccept.setText("Accept");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, -100);
+        jPanelButtons.add(jButtonAccept, gridBagConstraints);
+
+        jButtonCancel.setText("Cancel");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 15, -280);
+        jPanelButtons.add(jButtonCancel, gridBagConstraints);
+
+        jPanelFontChooser.add(jPanelButtons, java.awt.BorderLayout.SOUTH);
+
+        jPanel2.setBackground(java.awt.Color.white);
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jPanelSample.setBackground(java.awt.Color.white);
+        jPanelSample.setBorder(javax.swing.BorderFactory.createTitledBorder("Sample"));
+        jPanelSample.setPreferredSize(new java.awt.Dimension(220, 100));
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setText("AaBbYyZz");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel1.setPreferredSize(new java.awt.Dimension(150, 15));
+        jPanelSample.add(jLabel1);
+
+        jPanel2.add(jPanelSample, java.awt.BorderLayout.NORTH);
+
+        jPanelFontChooser.add(jPanel2, java.awt.BorderLayout.EAST);
+
+        jFontChooser.getContentPane().add(jPanelFontChooser, java.awt.BorderLayout.CENTER);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("JNoted");
@@ -138,6 +251,7 @@ public class JNotepad extends javax.swing.JFrame {
 
         jMenuFileSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jMenuFileSave.setText("Save");
+        jMenuFileSave.setEnabled(false);
         jMenuFileSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuFileSaveActionPerformed(evt);
@@ -395,6 +509,7 @@ public class JNotepad extends javax.swing.JFrame {
     private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
         if(this.fileCreated == NOT_NEW_FILE){
             this.fileCreated = NEW_FILE;
+            this.jMenuFileSave.setEnabled(true);
         }
         this.statusFileSave = NOT_SAVE;
     }//GEN-LAST:event_jTextArea1KeyTyped
@@ -447,7 +562,9 @@ public class JNotepad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuEditDelActionPerformed
 
     private void jMenuIEditFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuIEditFindActionPerformed
-
+        this.jframeFind = new JFrameFind();
+        this.jframeFind.setjTextAreaToFind(this.jTextArea1);
+        this.jframeFind.setVisible(true);        
     }//GEN-LAST:event_jMenuIEditFindActionPerformed
 
     private void jMenuFindNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFindNextActionPerformed
@@ -455,7 +572,9 @@ public class JNotepad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuFindNextActionPerformed
 
     private void jMenuEditReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditReplaceActionPerformed
-        // TODO add your handling code here:
+        this.jframeReplace = new JFrameReplace();
+        this.jframeReplace.setjTextAreaToReplace(this.jTextArea1);
+        this.jframeReplace.setVisible(true);
     }//GEN-LAST:event_jMenuEditReplaceActionPerformed
 
     private void jMenuEditTimeDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditTimeDateActionPerformed
@@ -463,7 +582,8 @@ public class JNotepad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuEditTimeDateActionPerformed
 
     private void jMenuFormatFontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFormatFontActionPerformed
-        // TODO add your handling code here:
+        this.jFontChooser.setVisible(true);
+        
     }//GEN-LAST:event_jMenuFormatFontActionPerformed
 
     private void jMenuViewStatusBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuViewStatusBarActionPerformed
@@ -492,7 +612,6 @@ public class JNotepad extends javax.swing.JFrame {
                             saveAs();           
                         }
                         close();
-                        
                         break;
                     case JOptionPane.NO_OPTION:
                         close();
@@ -502,7 +621,7 @@ public class JNotepad extends javax.swing.JFrame {
                 close();
             }
         }else{
-            close();   
+            close();
         }
     }
     private void saveAs(){
@@ -582,8 +701,15 @@ public class JNotepad extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAccept;
+    private javax.swing.JButton jButtonCancel;
     private javax.swing.JFileChooser jFileChooserOpenFile;
     private javax.swing.JFileChooser jFileChooserSaveAS;
+    private javax.swing.JFrame jFontChooser;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> jList3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -611,11 +737,21 @@ public class JNotepad extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuHelpViewHelp;
     private javax.swing.JMenuItem jMenuIEditFind;
     private javax.swing.JMenuItem jMenuViewStatusBar;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanelButtons;
+    private javax.swing.JPanel jPanelFontChooser;
+    private javax.swing.JPanel jPanelSample;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPaneFontSize;
+    private javax.swing.JScrollPane jScrollPaneFontStyle;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextFieldSelectFont;
     // End of variables declaration//GEN-END:variables
 }
