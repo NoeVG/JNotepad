@@ -36,6 +36,10 @@ public class JNotepad extends javax.swing.JFrame {
     public static final boolean SAVE = true;
     public static final boolean NOT_SAVE = false;
     
+    public static final boolean SHOWN_STATUS_BAR= true;
+    public static final boolean NOT_SHOWN_STATUS_BAR= false;
+    
+    
     
     private int fileCreated = NOT_NEW_FILE; 
     private boolean statusFileSave = NOT_SAVE; 
@@ -45,7 +49,13 @@ public class JNotepad extends javax.swing.JFrame {
     private UndoManager undo;
     
     private JFrameFind jframeFind; 
-    private JFrameReplace jframeReplace; 
+    private JFrameReplace jframeReplace;
+    
+    private boolean showStatusBar = NOT_SHOWN_STATUS_BAR;
+    private int lineNum = 1;
+    private int colNum = 1;
+            
+    
     public JNotepad() {
         initComponents();
     }
@@ -81,6 +91,8 @@ public class JNotepad extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jPanelStatusBar = new javax.swing.JPanel();
+        jTextFieldStatus = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuFileNew = new javax.swing.JMenuItem();
@@ -229,9 +241,19 @@ public class JNotepad extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jPanelStatusBar.setLayout(new java.awt.BorderLayout());
+
+        jTextFieldStatus.setEditable(false);
+        jTextFieldStatus.setText("jTextField1");
+        jTextFieldStatus.setPreferredSize(new java.awt.Dimension(100, 25));
+        jPanelStatusBar.add(jTextFieldStatus, java.awt.BorderLayout.EAST);
+
+        getContentPane().add(jPanelStatusBar, java.awt.BorderLayout.SOUTH);
+
         jMenu1.setText("File");
 
         jMenuFileNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuFileNew.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/add-new-document.png")); // NOI18N
         jMenuFileNew.setText("New");
         jMenuFileNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,6 +263,7 @@ public class JNotepad extends javax.swing.JFrame {
         jMenu1.add(jMenuFileNew);
 
         jMenuFileOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuFileOpen.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/open-archive.png")); // NOI18N
         jMenuFileOpen.setText("Open...");
         jMenuFileOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,6 +273,7 @@ public class JNotepad extends javax.swing.JFrame {
         jMenu1.add(jMenuFileOpen);
 
         jMenuFileSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuFileSave.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/save-file-option.png")); // NOI18N
         jMenuFileSave.setText("Save");
         jMenuFileSave.setEnabled(false);
         jMenuFileSave.addActionListener(new java.awt.event.ActionListener() {
@@ -259,6 +283,7 @@ public class JNotepad extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuFileSave);
 
+        jMenuFileSaveAs.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/folderSavweAs.png")); // NOI18N
         jMenuFileSaveAs.setText("Save As ...");
         jMenuFileSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,6 +294,7 @@ public class JNotepad extends javax.swing.JFrame {
         jMenu1.add(jSeparator1);
 
         jMenuFileExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuFileExit.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/close.png")); // NOI18N
         jMenuFileExit.setText("Close");
         jMenuFileExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -282,7 +308,9 @@ public class JNotepad extends javax.swing.JFrame {
         jMenu2.setText("Edit");
 
         jMenuEditUndo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditUndo.setIcon(new javax.swing.ImageIcon("/home/noe/NetBeansProjects/JNotepad/icon/undo.png")); // NOI18N
         jMenuEditUndo.setText("Undo");
+        jMenuEditUndo.setEnabled(false);
         jMenuEditUndo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuEditUndoActionPerformed(evt);
@@ -293,6 +321,7 @@ public class JNotepad extends javax.swing.JFrame {
 
         jMenuEditCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         jMenuEditCut.setText("Cut");
+        jMenuEditCut.setEnabled(false);
         jMenuEditCut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuEditCutActionPerformed(evt);
@@ -302,6 +331,7 @@ public class JNotepad extends javax.swing.JFrame {
 
         jMenuEditCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         jMenuEditCopy.setText("Copy");
+        jMenuEditCopy.setEnabled(false);
         jMenuEditCopy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuEditCopyActionPerformed(evt);
@@ -320,6 +350,7 @@ public class JNotepad extends javax.swing.JFrame {
 
         jMenuEditDel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         jMenuEditDel.setText("Delete");
+        jMenuEditDel.setEnabled(false);
         jMenuEditDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuEditDelActionPerformed(evt);
@@ -330,6 +361,7 @@ public class JNotepad extends javax.swing.JFrame {
 
         jMenuIEditFind.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         jMenuIEditFind.setText("Find...");
+        jMenuIEditFind.setEnabled(false);
         jMenuIEditFind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuIEditFindActionPerformed(evt);
@@ -339,6 +371,7 @@ public class JNotepad extends javax.swing.JFrame {
 
         jMenuFindNext.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
         jMenuFindNext.setText("Find Next");
+        jMenuFindNext.setEnabled(false);
         jMenuFindNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuFindNextActionPerformed(evt);
@@ -348,6 +381,7 @@ public class JNotepad extends javax.swing.JFrame {
 
         jMenuEditReplace.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
         jMenuEditReplace.setText("Replace...");
+        jMenuEditReplace.setEnabled(false);
         jMenuEditReplace.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuEditReplaceActionPerformed(evt);
@@ -357,6 +391,7 @@ public class JNotepad extends javax.swing.JFrame {
 
         jMenuEditGoTo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jMenuEditGoTo.setText("Go To...");
+        jMenuEditGoTo.setEnabled(false);
         jMenuEditGoTo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuEditGoToActionPerformed(evt);
@@ -367,6 +402,7 @@ public class JNotepad extends javax.swing.JFrame {
 
         jMenuEditSelectAll.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         jMenuEditSelectAll.setText("Select All");
+        jMenuEditSelectAll.setEnabled(false);
         jMenuEditSelectAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuEditSelectAllActionPerformed(evt);
@@ -469,7 +505,7 @@ public class JNotepad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuEditGoToActionPerformed
 
     private void jMenuEditSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditSelectAllActionPerformed
-        // TODO add your handling code here:
+        this.jTextArea1.selectAll();
     }//GEN-LAST:event_jMenuEditSelectAllActionPerformed
 
     private void jMenuFormatWordWrapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFormatWordWrapActionPerformed
@@ -510,10 +546,31 @@ public class JNotepad extends javax.swing.JFrame {
         if(this.fileCreated == NOT_NEW_FILE){
             this.fileCreated = NEW_FILE;
             this.jMenuFileSave.setEnabled(true);
+            this.jMenuEditSelectAll.setEnabled(true);
+            this.jMenuEditUndo.setEnabled(true);
+            this.jMenuEditCut.setEnabled(true);
+            this.jMenuEditCopy.setEnabled(true);
+            this.jMenuIEditFind.setEnabled(true);
+            this.jMenuFindNext.setEnabled(true);
+            this.jMenuEditReplace.setEnabled(true);
+            this.jMenuEditGoTo.setEnabled(true);
+            this.jMenuEditDel.setEnabled(true);
+            
+            
         }
         this.statusFileSave = NOT_SAVE;
+         try{
+            int caretPos = this.jTextArea1.getCaretPosition();
+            lineNum = this.jTextArea1.getLineOfOffset(caretPos);
+            colNum = caretPos - this.jTextArea1.getLineStartOffset(lineNum);
+            lineNum += 1;
+            updateStatus(lineNum, colNum);
+         }catch(Exception ex){
+                updateStatus(lineNum, colNum);
+        }
     }//GEN-LAST:event_jTextArea1KeyTyped
 
+    
     private void jMenuFileOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileOpenActionPerformed
         int option = this.jFileChooserOpenFile.showOpenDialog(this);
          switch(option){
@@ -535,6 +592,7 @@ public class JNotepad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuFileOpenActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.jPanelStatusBar.setVisible(showStatusBar);
         this.undo = new UndoManager();
         this.document = this.jTextArea1.getDocument();
         this.document.addUndoableEditListener(new UndoableEditListener() {
@@ -543,6 +601,7 @@ public class JNotepad extends javax.swing.JFrame {
                 undo.addEdit(e.getEdit());
             }
         });
+
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenuEditCutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditCutActionPerformed
@@ -587,7 +646,8 @@ public class JNotepad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuFormatFontActionPerformed
 
     private void jMenuViewStatusBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuViewStatusBarActionPerformed
-        // TODO add your handling code here:
+        this.jPanelStatusBar.setVisible(true);
+        this.jTextFieldStatus.setText("L: "+this.jTextArea1.getRows()+"C: "+this.jTextArea1.getColumns());
     }//GEN-LAST:event_jMenuViewStatusBarActionPerformed
 
     private void jMenuHelpViewHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHelpViewHelpActionPerformed
@@ -663,6 +723,9 @@ public class JNotepad extends javax.swing.JFrame {
         {
           System.out.print("Error :"+ex);
         }
+    }
+    private void updateStatus(int linenumber, int columnnumber) {
+        this.jTextFieldStatus.setText("L: " + linenumber + " C: " + columnnumber);
     }
     private void close(){
         this.dispose();
@@ -743,6 +806,7 @@ public class JNotepad extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelButtons;
     private javax.swing.JPanel jPanelFontChooser;
     private javax.swing.JPanel jPanelSample;
+    private javax.swing.JPanel jPanelStatusBar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPaneFontSize;
@@ -753,5 +817,6 @@ public class JNotepad extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextFieldSelectFont;
+    private javax.swing.JTextField jTextFieldStatus;
     // End of variables declaration//GEN-END:variables
 }

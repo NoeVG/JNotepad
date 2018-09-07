@@ -20,7 +20,9 @@ public class JFrameReplace extends javax.swing.JFrame {
     private boolean firstToFind = true;
     private int fromIndex;
     private Pattern p;
+    private Pattern pReplaceAll;
     private Matcher m;
+    private Matcher mReplaceAll;
     /**
      * Creates new form JFrameReplace
      */
@@ -57,7 +59,7 @@ public class JFrameReplace extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Remplace whit:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         jTextFieldFind.setPreferredSize(new java.awt.Dimension(150, 20));
         jTextFieldFind.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -65,10 +67,10 @@ public class JFrameReplace extends javax.swing.JFrame {
                 jTextFieldFindKeyTyped(evt);
             }
         });
-        jPanel2.add(jTextFieldFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, -1));
+        jPanel2.add(jTextFieldFind, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, 30));
 
         jLabel2.setText("Find What:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         jCheckBoxMatchCase.setText("Match Case");
         jPanel2.add(jCheckBoxMatchCase, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
@@ -79,7 +81,7 @@ public class JFrameReplace extends javax.swing.JFrame {
                 jTextFieldReplaceKeyTyped(evt);
             }
         });
-        jPanel2.add(jTextFieldReplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, -1, -1));
+        jPanel2.add(jTextFieldReplace, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, -1, 30));
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -150,7 +152,6 @@ public class JFrameReplace extends javax.swing.JFrame {
         }
         if(m.find()){
             this.jTextAreaToReplace.select(m.start(), m.end());
-            this.jTextFieldFind.setText(this.jTextAreaToReplace.getSelectedText());
         }else{
             JOptionPane.showConfirmDialog(null, "Not Found","Not Found",JOptionPane.WARNING_MESSAGE);
         }
@@ -161,19 +162,23 @@ public class JFrameReplace extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonReplaceActionPerformed
 
     private void jButtonReplaceAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReplaceAllActionPerformed
-        this.jTextAreaToReplace.replaceSelection(this.jTextFieldReplace.getText());
-        while(m.find()){
-            this.jTextAreaToReplace.select(0, 0);
-            this.jTextAreaToReplace.select(m.start(), m.end());
+        findSectionToRemplaceAll();
+        while(this.mReplaceAll.find()){
+            System.out.println("Find of "+this.mReplaceAll.start() +" to "+this.mReplaceAll.end());
+            this.jTextAreaToReplace.select(this.mReplaceAll.start(), this.mReplaceAll.end());
             this.jTextAreaToReplace.replaceSelection(this.jTextFieldReplace.getText());
+            findSectionToRemplaceAll();
         }
     }//GEN-LAST:event_jButtonReplaceAllActionPerformed
 
     public void setjTextAreaToReplace(JTextArea jTextAreaToReplace) {
         this.jTextAreaToReplace = jTextAreaToReplace;
     }
-
     
+    public void findSectionToRemplaceAll(){   
+        this.pReplaceAll = Pattern.compile(this.jTextFieldFind.getText());   // the pattern to search for
+        this.mReplaceAll = pReplaceAll.matcher(this.jTextAreaToReplace.getText());
+    } 
     /**
      * @param args the command line arguments
      */

@@ -120,6 +120,11 @@ public class JFrameFind extends javax.swing.JFrame {
         jPanel2.add(jButtonFindNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jButtonCancel.setText("Cancel");
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.EAST);
@@ -154,6 +159,10 @@ public class JFrameFind extends javax.swing.JFrame {
     private void jRadioButtonDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDownActionPerformed
         this.direcctionFind = FIND_DOWN;
     }//GEN-LAST:event_jRadioButtonDownActionPerformed
+
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonCancelActionPerformed
 
     public JTextArea getjTextAreaToFind() {
         return jTextAreaToFind;
