@@ -18,11 +18,9 @@ public class JFrameReplace extends javax.swing.JFrame {
 
     private JTextArea  jTextAreaToReplace;
     private boolean firstToFind = true;
-    private int fromIndex;
     private Pattern p;
-    private Pattern pReplaceAll;
     private Matcher m;
-    private Matcher mReplaceAll;
+
     /**
      * Creates new form JFrameReplace
      */
@@ -147,7 +145,8 @@ public class JFrameReplace extends javax.swing.JFrame {
     private void jButtonFindNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFindNextActionPerformed
         if(this.firstToFind){
            this.firstToFind = false;
-           findData();
+           this.p = Pattern.compile(this.jTextFieldFind.getText());   // the pattern to search for
+           this.m = p.matcher(this.jTextAreaToReplace.getText());
         }
         if(m.find()){
             this.jTextAreaToReplace.select(m.start(), m.end());
@@ -158,29 +157,20 @@ public class JFrameReplace extends javax.swing.JFrame {
 
     private void jButtonReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReplaceActionPerformed
         this.jTextAreaToReplace.replaceSelection(this.jTextFieldReplace.getText());
+        this.jTextFieldFind.setText("");
+        this.jTextFieldReplace.setText("");
     }//GEN-LAST:event_jButtonReplaceActionPerformed
 
     private void jButtonReplaceAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReplaceAllActionPerformed
-        findData();
-        while(this.m.find()){
-            System.out.println("Find of "+this.m.start() +" to "+this.m.end());
-            this.jTextAreaToReplace.select(this.m.start(), this.m.end());
-            this.jTextAreaToReplace.replaceSelection(this.jTextFieldReplace.getText());
-            findData();
-        }
+        this.m = p.matcher(this.jTextAreaToReplace.getText());
+        this.jTextAreaToReplace.setText(this.m.replaceAll(this.jTextFieldReplace.getText()));
+        this.jTextFieldFind.setText("");
+        this.jTextFieldReplace.setText("");
     }//GEN-LAST:event_jButtonReplaceAllActionPerformed
 
     public void setjTextAreaToReplace(JTextArea jTextAreaToReplace) {
         this.jTextAreaToReplace = jTextAreaToReplace;
     }
-    public void findData(){
-        this.p = Pattern.compile(this.jTextFieldFind.getText());   // the pattern to search for
-        this.m = p.matcher(this.jTextAreaToReplace.getText());
-    }
-    public void findSectionToRemplaceAll(){   
-        this.pReplaceAll = Pattern.compile(this.jTextFieldFind.getText());   // the pattern to search for
-        this.mReplaceAll = pReplaceAll.matcher(this.jTextAreaToReplace.getText());
-    } 
     /**
      * @param args the command line arguments
      */
