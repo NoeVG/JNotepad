@@ -147,8 +147,7 @@ public class JFrameReplace extends javax.swing.JFrame {
     private void jButtonFindNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFindNextActionPerformed
         if(this.firstToFind){
            this.firstToFind = false;
-           this.p = Pattern.compile(this.jTextFieldFind.getText());   // the pattern to search for
-           this.m = p.matcher(this.jTextAreaToReplace.getText());
+           findData();
         }
         if(m.find()){
             this.jTextAreaToReplace.select(m.start(), m.end());
@@ -162,19 +161,22 @@ public class JFrameReplace extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonReplaceActionPerformed
 
     private void jButtonReplaceAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReplaceAllActionPerformed
-        findSectionToRemplaceAll();
-        while(this.mReplaceAll.find()){
-            System.out.println("Find of "+this.mReplaceAll.start() +" to "+this.mReplaceAll.end());
-            this.jTextAreaToReplace.select(this.mReplaceAll.start(), this.mReplaceAll.end());
+        findData();
+        while(this.m.find()){
+            System.out.println("Find of "+this.m.start() +" to "+this.m.end());
+            this.jTextAreaToReplace.select(this.m.start(), this.m.end());
             this.jTextAreaToReplace.replaceSelection(this.jTextFieldReplace.getText());
-            findSectionToRemplaceAll();
+            findData();
         }
     }//GEN-LAST:event_jButtonReplaceAllActionPerformed
 
     public void setjTextAreaToReplace(JTextArea jTextAreaToReplace) {
         this.jTextAreaToReplace = jTextAreaToReplace;
     }
-    
+    public void findData(){
+        this.p = Pattern.compile(this.jTextFieldFind.getText());   // the pattern to search for
+        this.m = p.matcher(this.jTextAreaToReplace.getText());
+    }
     public void findSectionToRemplaceAll(){   
         this.pReplaceAll = Pattern.compile(this.jTextFieldFind.getText());   // the pattern to search for
         this.mReplaceAll = pReplaceAll.matcher(this.jTextAreaToReplace.getText());

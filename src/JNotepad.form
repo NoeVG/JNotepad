@@ -313,7 +313,7 @@
                   <KeyStroke key="Ctrl+N"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/add-new-document.png"/>
+                  <Image iconType="3" name="/resources/icon/add-new-document.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="New"/>
               </Properties>
@@ -327,7 +327,7 @@
                   <KeyStroke key="Ctrl+A"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/open-archive.png"/>
+                  <Image iconType="3" name="/resources/icon/open-archive.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Open..."/>
               </Properties>
@@ -341,7 +341,7 @@
                   <KeyStroke key="Ctrl+G"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/save-file-option.png"/>
+                  <Image iconType="3" name="/resources/icon/save-file-option.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Save"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -353,7 +353,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuFileSaveAs">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/folderSavweAs.png"/>
+                  <Image iconType="3" name="/resources/icon/folderSavweAs.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Save As ..."/>
               </Properties>
@@ -369,7 +369,7 @@
                   <KeyStroke key="Ctrl+Q"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/close.png"/>
+                  <Image iconType="3" name="/resources/icon/close.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Close"/>
               </Properties>
@@ -390,7 +390,7 @@
                   <KeyStroke key="Ctrl+Z"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/undo.png"/>
+                  <Image iconType="3" name="/resources/icon/undo.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Undo"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -407,7 +407,7 @@
                   <KeyStroke key="Ctrl+X"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/cut.png"/>
+                  <Image iconType="3" name="/resources/icon/cut.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cut"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -422,7 +422,7 @@
                   <KeyStroke key="Ctrl+C"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/copy-document.png"/>
+                  <Image iconType="3" name="/resources/icon/copy-document.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Copy"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -437,7 +437,7 @@
                   <KeyStroke key="Ctrl+V"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/paste-from-clipboard.png"/>
+                  <Image iconType="3" name="/resources/icon/paste-from-clipboard.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Paste"/>
               </Properties>
@@ -451,7 +451,7 @@
                   <KeyStroke key="DELETE"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/rubbish-bin-delete-button.png"/>
+                  <Image iconType="3" name="/resources/icon/rubbish-bin-delete-button.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Delete"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -468,7 +468,7 @@
                   <KeyStroke key="Ctrl+F"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/find.png"/>
+                  <Image iconType="3" name="/resources/icon/find.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Find..."/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -483,7 +483,7 @@
                   <KeyStroke key="F3"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/findNext.png"/>
+                  <Image iconType="3" name="/resources/icon/findNext.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Find Next"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -498,7 +498,7 @@
                   <KeyStroke key="Ctrl+H"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/replace.png"/>
+                  <Image iconType="3" name="/resources/icon/replace.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Replace..."/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -513,7 +513,7 @@
                   <KeyStroke key="Ctrl+G"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/going-to-work.png"/>
+                  <Image iconType="3" name="/resources/icon/going-to-work.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Go To..."/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -530,7 +530,7 @@
                   <KeyStroke key="Ctrl+A"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/selectAll.png"/>
+                  <Image iconType="3" name="/resources/icon/selectAll.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Select All"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -545,7 +545,7 @@
                   <KeyStroke key="F5"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/time.png"/>
+                  <Image iconType="3" name="/resources/icon/time.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Time/Date"/>
               </Properties>
@@ -571,7 +571,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuFormatFont">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/font.png"/>
+                  <Image iconType="3" name="/resources/icon/font.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Font..."/>
               </Properties>
@@ -604,7 +604,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuHelpViewHelp">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/help.png"/>
+                  <Image iconType="3" name="/resources/icon/help.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="View Help"/>
               </Properties>
@@ -615,7 +615,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuHelpAboutJNotepad">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/noe/NetBeansProjects/JNotepad/icon/iconApp.png"/>
+                  <Image iconType="3" name="/resources/icon/iconApp.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="About JNotepad"/>
               </Properties>
