@@ -143,13 +143,15 @@ public class JFrameFind extends javax.swing.JFrame {
            this.p = Pattern.compile(this.jTextFieldFind.getText());   // the pattern to search for
            this.m = p.matcher(this.jTextAreaToFind.getText());
         }
+        /*
         if(m.find()){
             System.out.println("Of: "+m.start()+" at "+m.end());
             this.jTextAreaToFind.select(m.start(), m.end());
         }else{
             JOptionPane.showConfirmDialog(null, "Not Found","Not Found",JOptionPane.WARNING_MESSAGE);
         }
-
+        */
+        find();
     }//GEN-LAST:event_jButtonFindNextActionPerformed
 
     private void jRadioButtonUPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonUPActionPerformed
@@ -170,6 +172,14 @@ public class JFrameFind extends javax.swing.JFrame {
 
     public void setjTextAreaToFind(JTextArea jTextAreaToFind) {
         this.jTextAreaToFind = jTextAreaToFind;
+    }
+    public void find(){
+        if(m.find()){
+            System.out.println("Of: "+m.start()+" at "+m.end());
+            this.jTextAreaToFind.select(m.start(), m.end());
+        }else{
+            JOptionPane.showConfirmDialog(null, "Not Found","Not Found",JOptionPane.WARNING_MESSAGE);
+        }
     }
     /**
      * @param args the command line arguments

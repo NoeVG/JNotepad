@@ -634,11 +634,11 @@ public class JNotepad extends javax.swing.JFrame {
         this.jframeFind = new JFrameFind();
         this.jframeFind.setjTextAreaToFind(this.jTextArea1);
         this.jframeFind.setVisible(true);
-        this.jMenuFindNext.setVisible(true);
+        this.jMenuFindNext.setEnabled(true);
     }//GEN-LAST:event_jMenuIEditFindActionPerformed
 
     private void jMenuFindNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFindNextActionPerformed
-        // TODO add your handling code here:
+        this.jframeFind.find();
     }//GEN-LAST:event_jMenuFindNextActionPerformed
 
     private void jMenuEditReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditReplaceActionPerformed
