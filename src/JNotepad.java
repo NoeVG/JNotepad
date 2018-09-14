@@ -13,6 +13,7 @@
 
 import edit.JFrameFind;
 import edit.JFrameReplace;
+import format.JFrameFont;
 import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -25,12 +26,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 import javax.swing.ImageIcon;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.Document;
 import javax.swing.undo.UndoManager;
+
 
 
 public class JNotepad extends javax.swing.JFrame {
@@ -45,7 +46,7 @@ public class JNotepad extends javax.swing.JFrame {
     public static final boolean NOT_SHOWN_STATUS_BAR= false;
     
     private String pathArgumentConsole;
-    
+   
     private int fileCreated = NOT_NEW_FILE; 
     private boolean statusFileSave = NOT_SAVE; 
     
@@ -55,6 +56,7 @@ public class JNotepad extends javax.swing.JFrame {
     
     private JFrameFind jframeFind; 
     private JFrameReplace jframeReplace;
+    private JFrameFont jframefont;
     
     private boolean showStatusBar = NOT_SHOWN_STATUS_BAR;
     private int lineNum = 1;
@@ -568,6 +570,7 @@ public class JNotepad extends javax.swing.JFrame {
         setVisibleMenu();
         if(this.fileCreated == NOT_NEW_FILE){
             this.fileCreated = NEW_FILE;
+            this.setTitle("Untitled - JNotepad");
         }
         this.statusFileSave = NOT_SAVE;
          try{
@@ -593,6 +596,7 @@ public class JNotepad extends javax.swing.JFrame {
                         this.jTextArea1.requestFocus();
                         this.fileCreated = OPEN_FILE;
                         this.statusFileSave = SAVE;
+                        this.setTitle(this.file.getName() + " - JNotepad");
                     }catch(IOException ex)
                     {
                       System.out.print("Error :"+ex);
@@ -652,7 +656,10 @@ public class JNotepad extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuEditTimeDateActionPerformed
 
     private void jMenuFormatFontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFormatFontActionPerformed
-        this.jFontChooser.setVisible(true);
+        this.jframefont = new JFrameFont();
+        this.jframefont.setTextArea(this.jTextArea1);
+        this.jframefont.setVisible(true);
+        //this.jFontChooser.setVisible(true);
         
     }//GEN-LAST:event_jMenuFormatFontActionPerformed
 
@@ -735,7 +742,8 @@ public class JNotepad extends javax.swing.JFrame {
                 break;
             case JFileChooser.CANCEL_OPTION:
                 break;
-        }    
+        }
+        this.setTitle(this.jFileChooserSaveAS.getSelectedFile().getName()+" - JNotepad");
     }
     public void saveFile(){
         try{
