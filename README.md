@@ -1,6 +1,5 @@
-========================
+
 JNotePad
-========================
 
 Autor: Noe Vasquez Godinez
 email: noe-x@outlook.com
